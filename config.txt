@@ -1,0 +1,66 @@
+# =============================================================================
+# THE OUTPOST HLL AUTO-SEEDER CONFIGURATION
+# =============================================================================
+# This file is ordinary text. Right-click -> Edit to change it in Notepad.
+#
+# IMPORTANT: START_TIME_UTC is UTC, NOT the computer's local time.
+# Using UTC means every seeder starts at the SAME MOMENT worldwide.
+#
+# Example:
+#   START_TIME_UTC=12:30
+# is:
+#   13:30 in the UK while BST (UTC+1) is in effect
+#   08:30 US Eastern while EDT (UTC-4) is in effect
+#
+# Daylight-saving changes alter the LOCAL clock time, but the actual trigger
+# moment remains fixed at 12:30 UTC.
+# =============================================================================
+
+START_TIME_UTC=04:40
+
+# Launch HLL only when player population is STRICTLY BELOW this number.
+START_BELOW_PLAYERS=60
+
+# Once population is STRICTLY ABOVE this number, begin random shutdown rolls.
+STOP_ABOVE_PLAYERS=80
+
+# Chance of closing HLL on each population check once above the threshold.
+# 10 means exactly a 1-in-10 chance on each check.
+# With CHECK_INTERVAL_SECONDS=60, each seeder independently rolls once per minute.
+SHUTDOWN_CHANCE_ONE_IN=10
+# How often CRCON is checked while HLL is running.
+CHECK_INTERVAL_SECONDS=60
+
+# Current proven delay before sending SPACE to the HLL splash screen.
+SPLASH_WAIT_SECONDS=60
+
+
+# Wake the PC this many minutes BEFORE START_TIME_UTC.
+# The normal scheduler still performs the population check at START_TIME_UTC.
+# This gives Windows/network connectivity time to recover after sleep.
+WAKE_BEFORE_MINUTES=2
+
+# After a SCHEDULED seeding session that this seeder launched and later closed,
+# optionally put the PC back to sleep. Manual "Run seeder now" runs never sleep
+# the PC automatically.
+RETURN_TO_SLEEP_AFTER_SEEDING=false
+# Delay after HLL has been successfully closed before requesting Windows sleep.
+# This gives Steam/HLL/network activity time to settle.
+RETURN_TO_SLEEP_DELAY_SECONDS=60
+
+# SAFETY NOTE:
+# The seeder automatically cancels a run if Hell Let Loose is already running,
+# or if another active Steam game is detected. Steam itself may remain open.
+# This is a built-in protection rather than a configurable option.
+
+# REMOTE SCHEDULE
+# START_TIME_UTC is the persistent last-known-good schedule.
+# The seeder checks https://the-outpost.ngrok.app/api/get_seed_start_time.
+# A valid returned HH:MM UTC value replaces START_TIME_UTC in the installed config.
+# If the web call fails or is invalid, the existing value is kept unchanged.
+
+# v0.21 NOTE:
+# Menu option 1 ("Run seeder now") still refreshes this remote schedule value,
+# but performs the population check immediately regardless of the daily time.
+# Scheduled runs continue to honour the remote time normally.
+

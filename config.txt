@@ -18,6 +18,14 @@
 
 START_TIME_UTC=04:40
 
+# Automatically replace START_TIME_UTC with the current time published by
+# The Outpost public API.
+# false = use the START_TIME_UTC above exactly as you set it; no seed-time web
+#         request is made.
+# true  = check the public API and save valid changes as the new start time.
+# Default is true for new installations so The Outpost can publish the daily seed time automatically.
+# Later updates must preserve the installed user's existing true/false choice.
+AUTO_UPDATE_SEED_TIME=true
 # Launch HLL only when player population is STRICTLY BELOW this number.
 START_BELOW_PLAYERS=60
 # Once population is STRICTLY ABOVE this number, begin random shutdown rolls.
@@ -52,8 +60,10 @@ RETURN_TO_SLEEP_DELAY_SECONDS=60
 # This is a built-in protection rather than a configurable option.
 
 # REMOTE SCHEDULE
-# START_TIME_UTC is the persistent last-known-good schedule.
-# The seeder checks https://the-outpost.ngrok.app/api/get_seed_start_time.
+# Controlled by AUTO_UPDATE_SEED_TIME above.
+# When false, START_TIME_UTC is user-controlled and the seed-time API is not called.
+# When true, the seeder checks:
+# https://the-outpost.ngrok.app/api/get_seed_start_time
 # A valid returned HH:MM UTC value replaces START_TIME_UTC in the installed config.
 # If the web call fails or is invalid, the existing value is kept unchanged.
 

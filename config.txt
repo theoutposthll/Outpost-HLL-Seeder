@@ -20,10 +20,8 @@ START_TIME_UTC=04:40
 
 # Launch HLL only when player population is STRICTLY BELOW this number.
 START_BELOW_PLAYERS=60
-
 # Once population is STRICTLY ABOVE this number, begin random shutdown rolls.
 STOP_ABOVE_PLAYERS=80
-
 # Chance of closing HLL on each population check once above the threshold.
 # 10 means exactly a 1-in-10 chance on each check.
 # With CHECK_INTERVAL_SECONDS=60, each seeder independently rolls once per minute.

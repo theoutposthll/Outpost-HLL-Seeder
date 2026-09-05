@@ -1,9 +1,8 @@
-[README.md](https://github.com/user-attachments/files/31829804/README.md)
 # The Outpost HLL Auto-Seeder
 
 A transparent Windows BAT/PowerShell tool that automatically helps seed **The Outpost Hell Let Loose server**.
 
-**Current public test version: v0.21**
+**Current public test version: v0.22**
 
 The aim is simple: make helping with morning seeding as effortless as possible, while keeping the tool open, readable and easy to audit.
 
@@ -35,7 +34,7 @@ In other words, your PC can help seed The Outpost while you're making breakfast,
 
 ## 🚦 Current seeding behaviour
 
-The supplied v0.21 defaults are:
+The supplied v0.22 defaults are:
 
 | Setting | Default |
 | --- | ---: |
@@ -104,8 +103,8 @@ Download the latest release ZIP from the **Releases** section of this repository
 Extract the files together:
 
 ```text
-OutpostHLLSeeder_v0.21.bat
-OutpostHLLSeeder_v0.21.ps1
+OutpostHLLSeeder_v0.22.bat
+OutpostHLLSeeder_v0.22.ps1
 config.txt
 README.txt
 ```
@@ -113,7 +112,7 @@ README.txt
 Then double-click:
 
 ```text
-OutpostHLLSeeder_v0.21.bat
+OutpostHLLSeeder_v0.22.bat
 ```
 
 The first run installs the working copy under:
@@ -178,9 +177,19 @@ The seeder requires you to type `REMOVE` before deletion proceeds.
 
 This removes the files, Startup launcher, scheduler process, logs and configuration created by the seeder. It does **not** remove or modify Steam or Hell Let Loose.
 
-## 🧪 v0.21 public test
+## 🆕 What's changed in v0.22
 
-v0.21 is currently being put out for wider testing.
+v0.22 is a maintenance update following initial public testing.
+
+- Fixed a scheduler-status logging error when formatting the armed wake time
+- The reported error affected status/error logging; the wake timer itself could still operate correctly
+- Carries forward the current seeding thresholds: join below **60**, begin staggered departure rolls above **80**
+- Keeps the **1-in-10 departure chance per minute**
+- Keeps `RETURN_TO_SLEEP_AFTER_SEEDING=false` as the default
+
+## 🧪 v0.22 public test
+
+v0.22 is currently being put out for wider testing.
 
 Useful feedback includes:
 

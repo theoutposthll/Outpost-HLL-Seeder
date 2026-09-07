@@ -67,8 +67,6 @@ RETURN_TO_SLEEP_DELAY_SECONDS=60
 # A valid returned HH:MM UTC value replaces START_TIME_UTC in the installed config.
 # If the web call fails or is invalid, the existing value is kept unchanged.
 
-# v0.21 NOTE:
-# Menu option 1 ("Run seeder now") still refreshes this remote schedule value,
-# but performs the population check immediately regardless of the daily time.
-# Scheduled runs continue to honour the remote time normally.
-
+# MANUAL RUN NOTE:
+# Menu option 1 ("Run seeder now") performs the population check immediately.
+# If AUTO_UPDATE_SEED_TIME=true, it may also refresh the saved daily schedule.

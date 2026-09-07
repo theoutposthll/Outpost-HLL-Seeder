@@ -2,9 +2,40 @@
 
 A transparent Windows BAT/PowerShell tool that automatically helps seed **The Outpost Hell Let Loose server**.
 
-**Current public test version: v0.23**
+**Current public test version: v0.24**
 
-## What changed in v0.23
+## What's changed in v0.24
+
+- **10-minute delayed-wake grace window:** automatic seeding can start at the
+  scheduled UTC time or during the following 9 minutes 59 seconds. At 10 minutes
+  late or more, it does nothing automatically.
+- **Read-only update notice:** on scheduler startup the tool checks the existing
+  Outpost public JSON endpoint for an optional `latest_seeder_version` field.
+  If a newer version is advertised, Windows tells the user to download it from
+  the link in The Outpost Discord.
+- **No automatic software updating:** the seeder never downloads, installs or
+  executes a new version itself.
+- Existing `AUTO_UPDATE_SEED_TIME` choices remain preserved across updates.
+
+### Repair-from-installed-copy fix
+
+Option **6. Reinstall / repair setup** can now be run from the already-installed
+BAT under `%LOCALAPPDATA%\OutpostHLLSeeder\`.
+
+v0.23 could try to copy the installed PS1/BAT onto themselves and stop with:
+
+```text
+Cannot overwrite the item ... with itself.
+```
+
+v0.24 detects identical source/destination paths, skips the self-copy, and
+continues the rest of the repair normally. Existing config values are preserved,
+including `AUTO_UPDATE_SEED_TIME` and a user-controlled `START_TIME_UTC`.
+
+The API change is backward compatible: older versions continue reading
+`start_time_utc` and ignore the extra version field.
+
+## What changed in v0.24
 
 The default for new installations is now:
 
@@ -70,7 +101,7 @@ repository for inspection.
 Download the latest release ZIP, extract all files together, then double-click:
 
 ```text
-OutpostHLLSeeder_v0.23.bat
+OutpostHLLSeeder_v0.24.bat
 ```
 
 The live installed copy is stored under:

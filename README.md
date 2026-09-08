@@ -2,9 +2,34 @@
 
 A transparent Windows BAT/PowerShell tool that automatically helps seed **The Outpost Hell Let Loose server**.
 
-**Current public test version: v0.24**
+**Current public test version: v0.25**
 
-## What's changed in v0.24
+## What's changed in v0.25
+
+### Hidden/detached Windows startup scheduler
+
+The Windows Startup launcher now starts the background scheduler as a **detached
+hidden PowerShell process** and then immediately exits.
+
+Previously, the Startup `.cmd` waited for the scheduler process to finish. That
+left a visible Command Prompt window open for as long as the scheduler was
+running. Closing that window also terminated the scheduler, which meant the
+daily seeding event could never fire.
+
+With v0.25:
+
+- the temporary Startup command window exits immediately;
+- the scheduler continues running independently in the background;
+- closing the normal seeder menu does not affect the scheduler;
+- the existing wake timer and daily schedule continue to be owned by the hidden
+  scheduler process.
+
+All v0.24 scheduling behavior is retained, including the 10-minute delayed-wake
+grace window and read-only update notification.
+
+The existing config defaults are unchanged.
+
+## What's changed in v0.25
 
 - **10-minute delayed-wake grace window:** automatic seeding can start at the
   scheduled UTC time or during the following 9 minutes 59 seconds. At 10 minutes
@@ -28,14 +53,14 @@ v0.23 could try to copy the installed PS1/BAT onto themselves and stop with:
 Cannot overwrite the item ... with itself.
 ```
 
-v0.24 detects identical source/destination paths, skips the self-copy, and
+v0.25 detects identical source/destination paths, skips the self-copy, and
 continues the rest of the repair normally. Existing config values are preserved,
 including `AUTO_UPDATE_SEED_TIME` and a user-controlled `START_TIME_UTC`.
 
 The API change is backward compatible: older versions continue reading
 `start_time_utc` and ignore the extra version field.
 
-## What changed in v0.24
+## What changed in v0.25
 
 The default for new installations is now:
 
@@ -101,7 +126,7 @@ repository for inspection.
 Download the latest release ZIP, extract all files together, then double-click:
 
 ```text
-OutpostHLLSeeder_v0.24.bat
+OutpostHLLSeeder_v0.25.bat
 ```
 
 The live installed copy is stored under:

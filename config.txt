@@ -37,7 +37,7 @@ STOP_ABOVE_PLAYERS=80
 # Chance of closing HLL on each population check once above the threshold.
 # 10 means exactly a 1-in-10 chance on each check.
 # With CHECK_INTERVAL_SECONDS=60, each seeder independently rolls once per minute.
-SHUTDOWN_CHANCE_ONE_IN=10
+SHUTDOWN_CHANCE_ONE_IN=5
 # How often CRCON is checked while HLL is running.
 CHECK_INTERVAL_SECONDS=60
 

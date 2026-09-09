@@ -1,3 +1,7 @@
+# INSTALLED LOCATION
+# After setup, the live config is stored at:
+# %LOCALAPPDATA%\OutpostHLLSeeder\setup_files\config.txt
+#
 # =============================================================================
 # THE OUTPOST HLL AUTO-SEEDER CONFIGURATION
 # =============================================================================
@@ -54,6 +58,24 @@ RETURN_TO_SLEEP_AFTER_SEEDING=false
 # This gives Steam/HLL/network activity time to settle.
 RETURN_TO_SLEEP_DELAY_SECONDS=60
 
+
+# HLL SETTINGS PROTECTION
+# Protect the user's HLL GameUserSettings.ini from the known reset/default state.
+#
+# true  = before this seeder launches HLL, compare the live settings file with
+#         the shipped known-default reference. Non-default settings are backed
+#         up locally. If the live file matches the known-default reference and
+#         a prior non-default backup exists, that backup is restored.
+# false = do not read, back up or restore HLL GameUserSettings.ini.
+PROTECT_HLL_SETTINGS=true
+#
+# Leave blank for the normal per-user HLL location:
+# %LOCALAPPDATA%\HLL\Saved\Config\WindowsNoEditor\GameUserSettings.ini
+#
+# Users with an unusual location may enter an explicit FULL path here.
+# Environment variables such as %LOCALAPPDATA% are supported.
+HLL_SETTINGS_FILE=
+
 # SAFETY NOTE:
 # The seeder automatically cancels a run if Hell Let Loose is already running,
 # or if another active Steam game is detected. Steam itself may remain open.
@@ -70,3 +92,4 @@ RETURN_TO_SLEEP_DELAY_SECONDS=60
 # MANUAL RUN NOTE:
 # Menu option 1 ("Run seeder now") performs the population check immediately.
 # If AUTO_UPDATE_SEED_TIME=true, it may also refresh the saved daily schedule.
+

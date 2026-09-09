@@ -2,9 +2,41 @@
 
 A transparent Windows BAT/PowerShell tool that automatically helps seed **The Outpost Hell Let Loose server**.
 
-**Current public test version: v0.25**
+**Current public test version: v0.26**
 
-## What's changed in v0.25
+## What's changed in v0.26
+
+### Startup scheduler is now truly hidden
+
+v0.26 replaces the Windows Startup `.cmd` launcher with a tiny `.vbs` launcher.
+
+The VBS starts the installed PowerShell scheduler with a hidden window and does
+**not** wait for it to finish. The VBS then exits immediately, leaving the
+scheduler running independently in the background.
+
+This fixes the remaining v0.25 issue where a visible `powershell.exe` window
+could still remain after login/reboot. Closing that window terminated the
+scheduler and prevented the scheduled seeding event from firing.
+
+During upgrade/repair, v0.26 also removes the old
+`Outpost HLL Auto-Seeder.cmd` Startup launcher so only the new VBS launcher
+remains.
+
+The normal Seeder **menu** may still be opened whenever needed and is safe to
+close; it is separate from the hidden scheduler.
+
+All v0.25 functionality is retained, including:
+
+- 10-minute delayed-wake grace window
+- read-only newer-version notification
+- repair-from-installed-copy protection
+- persistent `AUTO_UPDATE_SEED_TIME`
+- join below 60 players
+- staggered departure rolls above 80 players
+- 1-in-10 departure chance per minute
+- `RETURN_TO_SLEEP_AFTER_SEEDING=false`
+
+## What's changed in v0.26
 
 ### Hidden/detached Windows startup scheduler
 
@@ -16,7 +48,7 @@ left a visible Command Prompt window open for as long as the scheduler was
 running. Closing that window also terminated the scheduler, which meant the
 daily seeding event could never fire.
 
-With v0.25:
+With v0.26:
 
 - the temporary Startup command window exits immediately;
 - the scheduler continues running independently in the background;
@@ -29,7 +61,7 @@ grace window and read-only update notification.
 
 The existing config defaults are unchanged.
 
-## What's changed in v0.25
+## What's changed in v0.26
 
 - **10-minute delayed-wake grace window:** automatic seeding can start at the
   scheduled UTC time or during the following 9 minutes 59 seconds. At 10 minutes
@@ -53,14 +85,14 @@ v0.23 could try to copy the installed PS1/BAT onto themselves and stop with:
 Cannot overwrite the item ... with itself.
 ```
 
-v0.25 detects identical source/destination paths, skips the self-copy, and
+v0.26 detects identical source/destination paths, skips the self-copy, and
 continues the rest of the repair normally. Existing config values are preserved,
 including `AUTO_UPDATE_SEED_TIME` and a user-controlled `START_TIME_UTC`.
 
 The API change is backward compatible: older versions continue reading
 `start_time_utc` and ignore the extra version field.
 
-## What changed in v0.25
+## What changed in v0.26
 
 The default for new installations is now:
 
@@ -126,7 +158,7 @@ repository for inspection.
 Download the latest release ZIP, extract all files together, then double-click:
 
 ```text
-OutpostHLLSeeder_v0.25.bat
+OutpostHLLSeeder_v0.26.bat
 ```
 
 The live installed copy is stored under:

@@ -2,14 +2,41 @@
 
 A transparent Windows BAT/PowerShell tool that automatically helps seed **The Outpost Hell Let Loose server**.
 
-**Current public test version: v0.27**
+**Current public test version: v0.28**
 
-## What's changed in v0.27
+## What's changed in v0.28
+
+### Visible seeding session, hidden scheduler
+
+The scheduler still starts completely hidden at Windows login/reboot.
+
+At the scheduled time it first performs the normal eligibility checks in the
+background. If the server does not need seeding, nothing visible opens.
+
+If seeding is required, v0.28 launches a separate **visible PowerShell worker**
+for the actual HLL launch and population monitoring.
+
+This lets a user who takes over and starts actively playing close the visible
+worker window. That stops the current automated monitoring/shutdown session
+without killing the hidden scheduler, which remains running for future days.
+
+Menu option **1. Run seeder now** remains visible and interactive as before.
+
+### Activity-log fix
+
+Fixes the v0.27 bug where option **3. Open activity log** could execute
+installer-only reference-file code and fail with a null `LiteralPath` error.
+
+All existing settings protection, wake/scheduling, version notification and
+configuration preservation are retained.
+
+
+## What's changed in v0.28
 
 
 ### Initial backup created during setup
 
-v0.27 now establishes protection immediately during install/update/repair.
+v0.28 now establishes protection immediately during install/update/repair.
 
 If `PROTECT_HLL_SETTINGS=true` and the Seeder does not already have a local HLL
 settings backup:
@@ -29,7 +56,7 @@ option **1. Run seeder now**.
 
 ### Installation correction
 
-The v0.27 installer now captures the extracted release folder at process startup
+The v0.28 installer now captures the extracted release folder at process startup
 and copies `setup_files\HLL_GameUserSettings_DEFAULT_REFERENCE.ini` into the
 installed `setup_files` directory immediately after that directory is created.
 It then verifies the installed file exists before setup completes.
@@ -40,7 +67,7 @@ before the reference file has been installed.
 
 ### Installed `setup_files` folder
 
-v0.27 keeps the setup/reference/settings-protection files together after
+v0.28 keeps the setup/reference/settings-protection files together after
 installation as well as in the downloaded ZIP.
 
 The installed layout is now:
@@ -66,7 +93,7 @@ The live config is therefore:
 %LOCALAPPDATA%\OutpostHLLSeeder\setup_files\config.txt
 ```
 
-On upgrade/repair, v0.27 automatically migrates existing v0.27-and-earlier
+On upgrade/repair, v0.28 automatically migrates existing v0.28-and-earlier
 files from the old AppData root into `setup_files`. Existing user config values,
 including `AUTO_UPDATE_SEED_TIME`, `START_TIME_UTC`,
 `PROTECT_HLL_SETTINGS`, and `HLL_SETTINGS_FILE`, are preserved.
@@ -92,11 +119,11 @@ data, so refreshing it does not overwrite any user settings. Existing
 `config.txt` values and locally-created HLL settings backups remain preserved.
 
 
-## What's changed in v0.27
+## What's changed in v0.28
 
 ### Optional HLL settings protection
 
-v0.27 can protect the user's plain-text HLL `GameUserSettings.ini` before the
+v0.28 can protect the user's plain-text HLL `GameUserSettings.ini` before the
 Seeder launches Hell Let Loose.
 
 The normal live file is:
@@ -155,11 +182,11 @@ path. Leaving it blank uses the normal `%LOCALAPPDATA%` location.
 
 ### Cleaner download layout
 
-v0.27 keeps setup/reference inputs together:
+v0.28 keeps setup/reference inputs together:
 
 ```text
-OutpostHLLSeeder_v0.27.bat
-OutpostHLLSeeder_v0.27.ps1
+OutpostHLLSeeder_v0.28.bat
+OutpostHLLSeeder_v0.28.ps1
 README.md
 
 setup_files\
@@ -171,11 +198,11 @@ The installed live config remains in `%LOCALAPPDATA%\OutpostHLLSeeder\` and
 existing user settings are preserved during upgrades.
 
 
-## What's changed in v0.27
+## What's changed in v0.28
 
 ### Startup scheduler is now truly hidden
 
-v0.27 replaces the Windows Startup `.cmd` launcher with a tiny `.vbs` launcher.
+v0.28 replaces the Windows Startup `.cmd` launcher with a tiny `.vbs` launcher.
 
 The VBS starts the installed PowerShell scheduler with a hidden window and does
 **not** wait for it to finish. The VBS then exits immediately, leaving the
@@ -185,7 +212,7 @@ This fixes the remaining v0.25 issue where a visible `powershell.exe` window
 could still remain after login/reboot. Closing that window terminated the
 scheduler and prevented the scheduled seeding event from firing.
 
-During upgrade/repair, v0.27 also removes the old
+During upgrade/repair, v0.28 also removes the old
 `Outpost HLL Auto-Seeder.cmd` Startup launcher so only the new VBS launcher
 remains.
 
@@ -203,7 +230,7 @@ All v0.25 functionality is retained, including:
 - 1-in-10 departure chance per minute
 - `RETURN_TO_SLEEP_AFTER_SEEDING=false`
 
-## What's changed in v0.27
+## What's changed in v0.28
 
 ### Hidden/detached Windows startup scheduler
 
@@ -215,7 +242,7 @@ left a visible Command Prompt window open for as long as the scheduler was
 running. Closing that window also terminated the scheduler, which meant the
 daily seeding event could never fire.
 
-With v0.27:
+With v0.28:
 
 - the temporary Startup command window exits immediately;
 - the scheduler continues running independently in the background;
@@ -228,7 +255,7 @@ grace window and read-only update notification.
 
 The existing config defaults are unchanged.
 
-## What's changed in v0.27
+## What's changed in v0.28
 
 - **10-minute delayed-wake grace window:** automatic seeding can start at the
   scheduled UTC time or during the following 9 minutes 59 seconds. At 10 minutes
@@ -252,14 +279,14 @@ v0.23 could try to copy the installed PS1/BAT onto themselves and stop with:
 Cannot overwrite the item ... with itself.
 ```
 
-v0.27 detects identical source/destination paths, skips the self-copy, and
+v0.28 detects identical source/destination paths, skips the self-copy, and
 continues the rest of the repair normally. Existing config values are preserved,
 including `AUTO_UPDATE_SEED_TIME` and a user-controlled `START_TIME_UTC`.
 
 The API change is backward compatible: older versions continue reading
 `start_time_utc` and ignore the extra version field.
 
-## What changed in v0.27
+## What changed in v0.28
 
 The default for new installations is now:
 
@@ -325,7 +352,7 @@ repository for inspection.
 Download the latest release ZIP, extract all files together, then double-click:
 
 ```text
-OutpostHLLSeeder_v0.27.bat
+OutpostHLLSeeder_v0.28.bat
 ```
 
 The live installed copy is stored under:

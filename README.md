@@ -1,3 +1,11 @@
+### v0.30 existing-game launch safeguard
+
+v0.30 adds one final existing-game check immediately before the Seeder launches Hell Let Loose.
+
+The existing earlier checks remain unchanged. This final check closes the small gap between the initial eligibility check and the actual launch: if HLL or another visible Steam game starts during that interval, the Seeder cancels the launch and leaves the existing game alone.
+
+No other seeding, scheduling, settings-protection, shutdown, wake, or user-config behaviour is changed.
+
 ### v0.29 working-directory fix
 
 The background scheduler and scheduled seeding worker now explicitly use the
@@ -22,7 +30,7 @@ Fixes Option 6 (`Reinstall / repair setup`) when it is run from the already-inst
 
 A transparent Windows BAT/PowerShell tool that automatically helps seed **The Outpost Hell Let Loose server**.
 
-**Current public test version: v0.28**
+**Current public test version: v0.30**
 
 ## What's changed in v0.28
 

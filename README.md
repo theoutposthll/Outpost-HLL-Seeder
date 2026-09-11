@@ -1,3 +1,23 @@
+### v0.29 working-directory fix
+
+The background scheduler and scheduled seeding worker now explicitly use the
+installed Seeder directory under `%LOCALAPPDATA%\OutpostHLLSeeder` as their
+working directory.
+
+This prevents a background Seeder process from keeping the original extracted
+download folder "in use" after installation. Once installation/update has
+finished, the extracted release folder can be deleted normally.
+
+No scheduling, seeding, settings-protection, shutdown, wake, or user-config
+behaviour is changed by this fix.
+
+### Corrected v0.29 repair behaviour
+Fixed broken link on option 6
+
+### Corrected v0.28 repair behaviour
+
+Fixes Option 6 (`Reinstall / repair setup`) when it is run from the already-installed LocalAppData copy. The installer now detects that the packaged HLL default-reference source and installed destination are the same file and skips the unnecessary self-copy. Repair from an extracted release still refreshes the reference normally. Existing configuration and HLL settings backups are preserved.
+
 # The Outpost HLL Auto-Seeder
 
 A transparent Windows BAT/PowerShell tool that automatically helps seed **The Outpost Hell Let Loose server**.

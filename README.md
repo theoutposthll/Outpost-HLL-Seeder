@@ -1,3 +1,11 @@
+### v0.31 HLL settings-backup safety fix
+
+v0.31 fixes the HLL settings-protection case where an empty or incomplete `GameUserSettings.ini` could be mistaken for valid personal settings and overwrite the local backup. Invalid live files are now never backed up, invalid backups are never restored, and the previous valid backup is used when available.
+
+Default/reset detection now ignores machine-, session-, and game-version-specific values while still requiring the known default values for normal user settings. This prevents a freshly reset HLL file from being missed simply because resolution, benchmark, device, EULA/version, or newly-added settings differ from the shipped reference.
+
+No seeding, scheduling, shutdown, wake, existing-game detection, or user-config behaviour is changed.
+
 ### v0.30 existing-game launch safeguard
 
 v0.30 adds one final existing-game check immediately before the Seeder launches Hell Let Loose.
@@ -30,7 +38,7 @@ Fixes Option 6 (`Reinstall / repair setup`) when it is run from the already-inst
 
 A transparent Windows BAT/PowerShell tool that automatically helps seed **The Outpost Hell Let Loose server**.
 
-**Current public test version: v0.30**
+**Current public test version: v0.31**
 
 ## What's changed in v0.28
 

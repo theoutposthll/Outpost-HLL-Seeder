@@ -20,7 +20,7 @@
 # moment remains fixed at 12:30 UTC.
 # =============================================================================
 
-START_TIME_UTC=04:40
+START_TIME_UTC=12:00
 
 # Automatically replace START_TIME_UTC with the current time published by
 # The Outpost public API.

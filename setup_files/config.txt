@@ -20,7 +20,7 @@
 # moment remains fixed at 12:30 UTC.
 # =============================================================================
 
-START_TIME_UTC=12:00
+START_TIME_UTC=04:40
 
 # Automatically replace START_TIME_UTC with the current time published by
 # The Outpost public API.
@@ -85,7 +85,7 @@ HLL_SETTINGS_FILE=
 # Controlled by AUTO_UPDATE_SEED_TIME above.
 # When false, START_TIME_UTC is user-controlled and the seed-time API is not called.
 # When true, the seeder checks:
-# https://the-outpost.ngrok.app/api/get_seed_start_time
+# https://replays.theoutpostgaming.com/api/get_seed_start_time
 # A valid returned HH:MM UTC value replaces START_TIME_UTC in the installed config.
 # If the web call fails or is invalid, the existing value is kept unchanged.
 
